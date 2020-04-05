@@ -230,8 +230,12 @@ MonoBehaviour:
   turnThrust: 1
   screenTop: 11
   screenBottom: -11
-  screenRight: 0
-  screenLeft: 0
+  screenRight: 18
+  screenLeft: -18
+  bullet: {fileID: 3641719517090080810, guid: 659474a9dd7d01d449750086825fe71c, type: 3}
+  bulletForce: 800
+  bulletLifeDestroyDelay: 3
+  bulletOffsetFromPlayer: 0.88
 --- !u!50 &1281623849
 Rigidbody2D:
   serializedVersion: 4
@@ -309,7 +313,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1281623847}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1, y: -0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

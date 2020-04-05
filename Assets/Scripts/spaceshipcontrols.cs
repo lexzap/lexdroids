@@ -16,6 +16,10 @@ public class spaceshipcontrols : MonoBehaviour
     public float screenRight;
     public float screenLeft;
 
+    public GameObject bullet;
+    public float bulletForce;
+    public float bulletLifeDestroyDelay;
+    public float bulletOffsetFromPlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +33,15 @@ public class spaceshipcontrols : MonoBehaviour
         //get input from keyboard and apply thrust
         thrustInput = Input.GetAxis("Vertical");
         turnInput = Input.GetAxis("Horizontal");   
+
+        //check input from fire key and make bullets
+        if (Input.GetButtonDown("Fire1")){
+            Vector3 bulletPosition = new Vector3(transform.position.x, transform.position.y + bulletOffsetFromPlayer, 0.0f);
+            GameObject newBullet = Instantiate(bullet,bulletPosition,transform.rotation);
+            newBullet.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.up * bulletForce);
+            Destroy(newBullet,bulletLifeDestroyDelay);
+        }
+
 
         //screen wrapping
         Vector2 newPos =  transform.position;
@@ -45,7 +58,7 @@ public class spaceshipcontrols : MonoBehaviour
             newPos.x = screenLeft;
         }
         if(transform.position.x < screenLeft){
-            newPos.y = screenRight;
+            newPos.x = screenRight;
         }
 
         //set it back
