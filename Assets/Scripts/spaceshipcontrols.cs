@@ -36,13 +36,15 @@ public class spaceshipcontrols : MonoBehaviour
 
         //check input from fire key and make bullets
         if (Input.GetButtonDown("Fire1")){
-            Vector3 bulletPosition = new Vector3(transform.position.x, transform.position.y + bulletOffsetFromPlayer, 0.0f);
+            Vector3 bulletPosition = new Vector3(transform.position.x + bulletOffsetFromPlayer, transform.position.y + bulletOffsetFromPlayer, 0.0f);
             GameObject newBullet = Instantiate(bullet,bulletPosition,transform.rotation);
             newBullet.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.up * bulletForce);
             Destroy(newBullet,bulletLifeDestroyDelay);
         }
 
-
+        //rotate the ship 
+        transform.Rotate(Vector3.forward * -turnInput * Time.deltaTime *turnThrust);
+        
         //screen wrapping
         Vector2 newPos =  transform.position;
 
@@ -68,6 +70,6 @@ public class spaceshipcontrols : MonoBehaviour
     //Fixed timeing update
     void FixedUpdate() {
         rb.AddRelativeForce(Vector2.up * thrustInput);
-        rb.AddTorque(-turnInput);
+        //rb.AddTorque(-turnInput * turnThrust);
     }
 }
