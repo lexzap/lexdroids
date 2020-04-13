@@ -5,6 +5,8 @@ using UnityEngine;
 public class spaceshipcontrols : MonoBehaviour
 {
     public Rigidbody2D rb;
+
+    public SpriteRenderer sr;
     public float thrust;
     public float turnThrust;
     private float thrustInput;
@@ -20,6 +22,10 @@ public class spaceshipcontrols : MonoBehaviour
     public float bulletForce;
     public float bulletLifeDestroyDelay;
     public float bulletOffsetFromPlayer;
+
+    public float deathSpeed;
+    public float mediumSpeed;
+
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +54,19 @@ public class spaceshipcontrols : MonoBehaviour
         //screen wrapping
         Vector2 newPos =  transform.position;
 
+        //change speed color
+        if (rb.velocity.magnitude > mediumSpeed && rb.velocity.magnitude < deathSpeed)
+        {
+            sr.color = Color.yellow;
+        }
+        else if (rb.velocity.magnitude > deathSpeed)
+        {
+            sr.color = Color.red;
+        }
+        else {
+            sr.color = Color.white;
+        }
+
         //begin if changes 
         if(transform.position.y > screenTop){
             newPos.y = screenBottom;
@@ -71,5 +90,13 @@ public class spaceshipcontrols : MonoBehaviour
     void FixedUpdate() {
         rb.AddRelativeForce(Vector2.up * thrustInput);
         //rb.AddTorque(-turnInput * turnThrust);
+    }
+
+    private void OnCollisionEnter2D(Collision2D col) 
+    {
+        Debug.Log("relative hit: " + col.relativeVelocity.magnitude);
+        if(col.relativeVelocity.magnitude > mediumSpeed) {
+            Debug.Log("boom");
+        }
     }
 }

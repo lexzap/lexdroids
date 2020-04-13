@@ -57,6 +57,8 @@ public class AsteroidScript : MonoBehaviour
 
     void  OnTriggerEnter2D(Collider2D other) 
     {
-        Debug.Log("Hit by " +  other.name);
+        //Debug.Log("Hit by " +  other.name);
+        //destroy the bullet 
+        Destroy(other.gameObject);
     }
 }
